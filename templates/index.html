@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Score Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎓 Student Exam Score Predictor</h1>
+        <p>Enter the student's details to predict their exam score.</p>
+
+        <form action="{{ url_for('predict') }}" method="POST">
+            
+            <div class="form-grid">
+                
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="15" max="25" value="18" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="study_hours_per_day">Study Hours / Day</label>
+                    <input type="number" id="study_hours_per_day" name="study_hours_per_day" step="0.1" min="0" max="12" value="4" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="social_media_hours">Social Media Hours / Day</label>
+                    <input type="number" id="social_media_hours" name="social_media_hours" step="0.1" min="0" max="10" value="2" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="netflix_hours">Netflix Hours / Day</label>
+                    <input type="number" id="netflix_hours" name="netflix_hours" step="0.1" min="0" max="10" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="attendance_percentage">Attendance (%)</label>
+                    <input type="number" id="attendance_percentage" name="attendance_percentage" step="1" min="0" max="100" value="90" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sleep_hours">Sleep Hours / Night</label>
+                    <input type="number" id="sleep_hours" name="sleep_hours" step="0.1" min="4" max="12" value="7" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="exercise_frequency">Exercise (Days / Week)</label>
+                    <input type="number" id="exercise_frequency" name="exercise_frequency" step="1" min="0" max="7" value="3" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mental_health_rating">Mental Health Rating (1-10)</label>
+                    <input type="number" id="mental_health_rating" name="mental_health_rating" step="1" min="1" max="10" value="8" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        {% for option in categorical_options.gender %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="part_time_job">Part-Time Job</label>
+                    <select id="part_time_job" name="part_time_job" required>
+                        {% for option in categorical_options.part_time_job %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="diet_quality">Diet Quality</label>
+                    <select id="diet_quality" name="diet_quality" required>
+                        {% for option in categorical_options.diet_quality %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="parental_education_level">Parental Education Level</label>
+                    <select id="parental_education_level" name="parental_education_level" required>
+                        {% for option in categorical_options.parental_education_level %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="internet_quality">Internet Quality</label>
+                    <select id="internet_quality" name="internet_quality" required>
+                        {% for option in categorical_options.internet_quality %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="extracurricular_participation">Extracurriculars</label>
+                    <select id="extracurricular_participation" name="extracurricular_participation" required>
+                        {% for option in categorical_options.extracurricular_participation %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Predict Score</button>
+        </form>
+
+        {% if prediction_text %}
+        <div class="result">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
